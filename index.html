@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather</title>
+
+    <script
+      src="https://kit.fontawesome.com/28fbf3a099.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="stylesheet" href="src/styles.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <header><h2 id="date-time">Date and Time</h2></header>
+    <div class="container">
+      <div class="input-group" id="newLocation">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search Location"
+          aria-label="Search Location with two button addons"
+          id="search-bar"
+        />
+        <button
+          class="btn btn-outline-secondary"
+          id="searchButton"
+          ,type="button"
+        >
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          id="currentLocation"
+        >
+          Currrent Location
+        </button>
+      </div>
+
+      <div class="card todays-weather">
+        <div class="row">
+          <div class="col">
+            <h1 id="location">London</h1>
+            <h3>
+              <a href="#" id="c-link">°C</a> | <a href="#" id="F-link">°F</a>
+            </h3>
+            <div class="row">
+              <div class="col">
+                <i class="fa-solid fa-moon moon"></i>
+              </div>
+              <div class="col current-temp">
+                <p class="today-c" id="today-c">15°C</p>
+              </div>
+              <div class="col temp">
+                <span>
+                  <p class="today-h" id="today-h">Max 16°C</p>
+                </span>
+                <p class="today-l" id="today-l">Min 11°C</p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card today-breakdown">
+              <div class="card-body">
+                <h5>A clear sky and a gentle breeze</h5>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Humidity 62%</li>
+                <li class="list-group-item">Pressure 1011 mb</li>
+                <li class="list-group-item">Visibility Good</li>
+                <li class="list-group-item">Temperature feels like 17°C</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row next-5-days">
+        <div class="col">
+          <div class="card day1">
+            <div class="row">
+              <div class="col-3 icon">
+                <i class="fa-solid fa-cloud-rain cloud-rain"></i>
+              </div>
+              <div class="col-9">
+                <h5 class="card-title">Tuesday</h5>
+                <p class="card-text temp-h">17°C</p>
+                <p class="card-text temp-l">10°C</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card day2">
+            <div class="row">
+              <div class="col-3 icon">
+                <i class="fa-solid fa-cloud-sun cloud-sun"></i>
+              </div>
+              <div class="col-9">
+                <h5 class="card-title">Wednesday</h5>
+                <p class="card-text temp-h">23°C</p>
+                <p class="card-text temp-l">13°C</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card day3">
+            <div class="row">
+              <div class="col-3 icon">
+                <i class="fa-solid fa-cloud-sun cloud-sun"></i>
+              </div>
+              <div class="col-9">
+                <h5 class="card-title">Thursday</h5>
+                <p class="card-text temp-h">25°C</p>
+                <p class="card-text temp-l">15°C</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card day4">
+            <div class="row">
+              <div class="col-3 icon">
+                <i class="fa-solid fa-cloud-sun cloud-sun"></i>
+              </div>
+              <div class="col-9">
+                <h5 class="card-title">Friday</h5>
+                <p class="card-text temp-h">23°C</p>
+                <p class="card-text temp-l">13°C</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card day5">
+            <div class="row">
+              <div class="col-3 icon">
+                <i class="fa-solid fa-cloud-sun-rain cloud-sun-rain"></i>
+              </div>
+              <div class="col-9">
+                <h5 class="card-title">Saturday</h5>
+                <p class="card-text temp-h">20°C</p>
+                <p class="card-text temp-l">12°C</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p class="footer">
+        <a
+          href="https://github.com/amyhayes789/SheCodes-Plus-Weather-Project"
+          target="_blank"
+          >Open-source code</a
+        >
+        by Amy Hayes
+      </p>
+    </footer>
+
+    <script src="src/index.js"></script>
+  </body>
+</html>
