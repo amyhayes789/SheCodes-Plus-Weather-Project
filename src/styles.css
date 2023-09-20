@@ -44,8 +44,6 @@ h5 {
 .today-c {
   font-size: 35px;
   text-align: center;
-  position: relative;
-  top: 5px;
 }
 .today-l,
 .today-h {
@@ -58,6 +56,19 @@ h5 {
 
 .icon {
   text-align: center;
+}
+
+.current-temp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+#mainWeatherIcon {
+  line-height: 1.5;
+  display: block;
+  margin: 0 auto;
 }
 
 .cloud-rain,
@@ -81,5 +92,6 @@ footer {
   text-align: center;
 }
 
-.today-breakdown {
+#description {
+  text-transform: capitalize;
 }

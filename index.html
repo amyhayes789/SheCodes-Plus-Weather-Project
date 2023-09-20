@@ -63,15 +63,18 @@
             </h3>
             <div class="row">
               <div class="col">
-                <i class="fa-solid fa-moon moon"></i>
+                <img
+                  src="https://openweathermap.org/img/wn/13d@2x.png"
+                  alt="Main Icon"
+                  id="mainWeatherIcon"
+                />
               </div>
               <div class="col current-temp">
                 <p class="today-c" id="today-c">15°C</p>
               </div>
               <div class="col temp">
-                <span>
-                  <p class="today-h" id="today-h">Max 16°C</p>
-                </span>
+                <p class="today-h" id="today-h">Max 16°C</p>
+
                 <p class="today-l" id="today-l">Min 11°C</p>
               </div>
             </div>
@@ -79,11 +82,15 @@
           <div class="col">
             <div class="card1 today-breakdown">
               <ul class="list-group list-group-flush">
-                <li class="list-group-item">A clear sky and a gentle breeze</li>
-                <li class="list-group-item">Humidity 62%</li>
-                <li class="list-group-item">Pressure 1011 mb</li>
-                <li class="list-group-item">Visibility Good</li>
-                <li class="list-group-item">Temperature feels like 17°C</li>
+                <li class="list-group-item" id="description">
+                  Weather Description
+                </li>
+                <li class="list-group-item" id="humidity">Humidity</li>
+                <li class="list-group-item" id="pressure">Pressure</li>
+                <li class="list-group-item" id="windSpeed">Wind Speed</li>
+                <li class="list-group-item" id="feelslike">
+                  Temperature feels like
+                </li>
               </ul>
             </div>
           </div>

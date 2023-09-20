@@ -58,7 +58,7 @@ let dateTime = document.querySelector("#date-time");
 let now = new Date();
 dateTime.innerHTML = currentDate(now);
 
-//Change Main Location from Search Bar
+//Location from search bar
 let searchBar = document.querySelector("#searchButton");
 searchBar.addEventListener("click", search);
 
@@ -70,30 +70,10 @@ function search(event) {
 
   let searchKey = "bd3bb6534458ba51b48c49f5155745b6";
   let searchUrl = `https://api.openweathermap.org/data/2.5/weather?q=${searchLocation.value}&appid=${searchKey}&units=metric`;
-  axios.get(searchUrl).then(displaySearchWeather);
+  axios.get(searchUrl).then(displayWeather);
 }
 
-function displaySearchWeather(response) {
-  let searchWeather = response.data;
-  console.log(searchWeather);
-
-  let searchTemperature = Math.round(response.data.main.temp);
-  console.log(searchTemperature);
-  let searchCityTemp = document.querySelector("#today-c");
-  searchCityTemp.innerHTML = `${searchTemperature}°C`;
-
-  let searchMinTemperature = Math.round(response.data.main.temp_min);
-  console.log(searchMinTemperature);
-  let searchCityMinTemp = document.querySelector("#today-l");
-  searchCityMinTemp.innerHTML = `Min ${searchMinTemperature}°C`;
-
-  let searchMaxTemperature = Math.round(response.data.main.temp_max);
-  console.log(searchMaxTemperature);
-  let searchCityMaxTemp = document.querySelector("#today-h");
-  searchCityMaxTemp.innerHTML = `Max ${searchMaxTemperature}°C`;
-}
-
-//Change Location to current location and update weather
+//Change location to current location
 let currentButton = document.querySelector("#currentLocation");
 currentButton.addEventListener("click", getCurrentPosition);
 
@@ -111,14 +91,15 @@ function showPosition(position) {
   axios.get(url).then(displayWeather);
 }
 
+//Update weather based on locations
 function displayWeather(response) {
   let weather = response.data;
   console.log(weather);
 
   let temperature = Math.round(response.data.main.temp);
   console.log(temperature);
-  let currentCityTemp = document.querySelector("#today-c");
-  currentCityTemp.innerHTML = `${temperature}°C`;
+  let cityTemp = document.querySelector("#today-c");
+  cityTemp.innerHTML = `${temperature}°C`;
 
   let minTemperature = Math.round(response.data.main.temp_min);
   console.log(minTemperature);
@@ -130,10 +111,43 @@ function displayWeather(response) {
   let currentCityMaxTemp = document.querySelector("#today-h");
   currentCityMaxTemp.innerHTML = `Max ${maxTemperature}°C`;
 
+  let mainIcon = response.data.weather[0].icon;
+  console.log(mainIcon);
+  let weatherIcon = document.querySelector("#mainWeatherIcon");
+  weatherIcon.setAttribute(
+    "src",
+    `https://openweathermap.org/img/wn/${mainIcon}@2x.png`
+  );
+
   let location = response.data.name;
   console.log(location);
   let templocation = document.querySelector("#location");
   templocation.innerHTML = location;
+
+  let description = response.data.weather[0].description;
+  console.log(description);
+  let currentCityDescription = document.querySelector("#description");
+  currentCityDescription.innerHTML = description;
+
+  let humidity = response.data.main.humidity;
+  console.log(humidity);
+  let currentCityHumidity = document.querySelector("#humidity");
+  currentCityHumidity.innerHTML = `Humidity ${humidity}%`;
+
+  let pressure = response.data.main.pressure;
+  console.log(pressure);
+  let currentCityPressure = document.querySelector("#pressure");
+  currentCityPressure.innerHTML = `Pressure ${pressure}mb`;
+
+  let windSpeed = response.data.wind.speed;
+  console.log(windSpeed);
+  let currentCityWindSpeed = document.querySelector("#windSpeed");
+  currentCityWindSpeed.innerHTML = `Wind Speed ${windSpeed}m/s`;
+
+  let feelsLike = response.data.main.feels_like;
+  console.log(feelsLike);
+  let currentCityFeelsLike = document.querySelector("#feelslike");
+  currentCityFeelsLike.innerHTML = `Temperature feels like ${feelsLike}°C`;
 }
 
 //Change between Centigrade and Fahrenheit
