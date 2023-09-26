@@ -58,6 +58,16 @@ let dateTime = document.querySelector("#date-time");
 let now = new Date();
 dateTime.innerHTML = currentDate(now);
 
+//default location
+let defaultlocation = "Enfield";
+
+function setdefault(loadlocation) {
+  let searchKey = "bd3bb6534458ba51b48c49f5155745b6";
+  let searchUrl = `https://api.openweathermap.org/data/2.5/weather?q=${loadlocation}&appid=${searchKey}&units=metric`;
+  axios.get(searchUrl).then(displayWeather);
+}
+setdefault(defaultlocation);
+
 //Location from search bar
 let searchBar = document.querySelector("#searchButton");
 searchBar.addEventListener("click", search);
@@ -96,17 +106,20 @@ function displayWeather(response) {
   let weather = response.data;
   console.log(weather);
 
-  let temperature = Math.round(response.data.main.temp);
+  celciusTemperature = response.data.main.temp;
+  let temperature = Math.round(celciusTemperature);
   console.log(temperature);
   let cityTemp = document.querySelector("#today-c");
   cityTemp.innerHTML = `${temperature}°C`;
 
-  let minTemperature = Math.round(response.data.main.temp_min);
+  celciusMinTemperature = response.data.main.temp_min;
+  let minTemperature = Math.round(celciusMinTemperature);
   console.log(minTemperature);
   let currentCityMinTemp = document.querySelector("#today-l");
   currentCityMinTemp.innerHTML = `Min ${minTemperature}°C`;
 
-  let maxTemperature = Math.round(response.data.main.temp_max);
+  celciusMaxTemperature = response.data.main.temp_max;
+  let maxTemperature = Math.round(celciusMaxTemperature);
   console.log(maxTemperature);
   let currentCityMaxTemp = document.querySelector("#today-h");
   currentCityMaxTemp.innerHTML = `Max ${maxTemperature}°C`;
@@ -144,34 +157,63 @@ function displayWeather(response) {
   let currentCityWindSpeed = document.querySelector("#windSpeed");
   currentCityWindSpeed.innerHTML = `Wind Speed ${windSpeed}m/s`;
 
-  let feelsLike = response.data.main.feels_like;
+  let feelsLike = Math.round(response.data.main.feels_like);
   console.log(feelsLike);
   let currentCityFeelsLike = document.querySelector("#feelslike");
   currentCityFeelsLike.innerHTML = `Temperature feels like ${feelsLike}°C`;
 }
 
 //Change between Centigrade and Fahrenheit
-//let todayMax = 17;
-//let todayMin = 10;
-//let todayMaxTemp = document.querySelector("#today-h");
-//let todayMinTemp = document.querySelector("#today-l");
+let centigrade = document.querySelector("#c-link");
+centigrade.addEventListener("click", cTemp);
 
-//function cTemp(event) {
-//event.preventDefault();
-// todayMaxTemp.innerHTML = `${todayMax}°C`;
-//todayMinTemp.innerHTML = `${todayMin}°C`;
-//}
+let fahrenheit = document.querySelector("#F-link");
+fahrenheit.addEventListener("click", fTemp);
 
-//let centigrade = document.querySelector("#c-link");
-//centigrade.addEventListener("click", cTemp);
+let celciusTemperature = null;
+let celciusMinTemperature = null;
+let celciusMaxTemperature = null;
 
-//function fTemp(event) {
-// event.preventDefault();
-// let todayMaxF = (todayMax * 9) / 5 + 32;
-//todayMaxTemp.innerHTML = `${todayMaxF}°F`;
-//let todayMinF = (todayMin * 9) / 5 + 32;
-//todayMinTemp.innerHTML = `${todayMinF}°F`;
-//}
+function cTemp(event) {
+  event.preventDefault();
+  centigrade.classList.add("active");
+  centigrade.classList.remove("inactive");
+  fahrenheit.classList.remove("active");
+  fahrenheit.classList.add("inactive");
 
-//let fahrenheit = document.querySelector("#F-link");
-//fahrenheit.addEventListener("click", fTemp);
+  let celciusMainTemperature = Math.round(celciusTemperature);
+  let cityTemp = document.querySelector("#today-c");
+  cityTemp.innerHTML = `${celciusMainTemperature}°C`;
+
+  let minCelciusTemperature = Math.round(celciusMinTemperature);
+  let currentCityMinTemp = document.querySelector("#today-l");
+  currentCityMinTemp.innerHTML = `Min ${minCelciusTemperature}°C`;
+
+  let maxCelciusTemperature = Math.round(celciusMaxTemperature);
+  let currentCityMaxTemp = document.querySelector("#today-h");
+  currentCityMaxTemp.innerHTML = `Max ${maxCelciusTemperature}°C`;
+}
+
+function fTemp(event) {
+  event.preventDefault();
+  centigrade.classList.remove("active");
+  centigrade.classList.add("inactive");
+  fahrenheit.classList.add("active");
+  fahrenheit.classList.remove("inactive");
+
+  let fahrenheitTemperature = Math.round(celciusTemperature * (9 / 5) + 32);
+  let cityTemp = document.querySelector("#today-c");
+  cityTemp.innerHTML = `${fahrenheitTemperature}°F`;
+
+  let minFarenheitTemperature = Math.round(
+    celciusMinTemperature * (9 / 5) + 32
+  );
+  let currentCityMinTemp = document.querySelector("#today-l");
+  currentCityMinTemp.innerHTML = `Min ${minFarenheitTemperature}°F`;
+
+  let maxFarenheitTemperature = Math.round(
+    celciusMaxTemperature * (9 / 5) + 32
+  );
+  let currentCityMaxTemp = document.querySelector("#today-h");
+  currentCityMaxTemp.innerHTML = `Max ${maxFarenheitTemperature}°F`;
+}
