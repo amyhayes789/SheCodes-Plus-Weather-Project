@@ -58,8 +58,49 @@ let dateTime = document.querySelector("#date-time");
 let now = new Date();
 dateTime.innerHTML = currentDate(now);
 
+//Create Forecast
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
+
+  let forecastHTML = `<div class="row">`;
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+    <div class="col">
+          <div class="card day">
+            <div class="row">
+              <h5 class="card-title">${day}</h5>
+            </div>
+            <div class="row">
+              <img
+                src="https://openweathermap.org/img/wn/02d@2x.png"
+                alt="Forecast Day Icon"
+                id="dayIcon"
+              />
+            </div>
+            <div class="row">
+              <div class="col">
+                <p class="card-text temp-h">20°C</p>
+              </div>
+              <div class="col">
+                <p class="card-text temp-l">12°C</p>
+              </div>
+            </div>
+          </div>
+        </div>
+  `;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+displayForecast();
+
 //default location
-let defaultlocation = "Enfield";
+let defaultlocation = "London";
 
 function setdefault(loadlocation) {
   let searchKey = "bd3bb6534458ba51b48c49f5155745b6";
