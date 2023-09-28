@@ -59,7 +59,9 @@ let now = new Date();
 dateTime.innerHTML = currentDate(now);
 
 //Create Forecast
-function displayForecast() {
+function displayForecast(response) {
+  console.log(response.data.daily);
+
   let forecastElement = document.querySelector("#forecast");
 
   let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
@@ -97,7 +99,6 @@ function displayForecast() {
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
 }
-displayForecast();
 
 //default location
 let defaultlocation = "London";
@@ -202,6 +203,17 @@ function displayWeather(response) {
   console.log(feelsLike);
   let currentCityFeelsLike = document.querySelector("#feelslike");
   currentCityFeelsLike.innerHTML = `Temperature feels like ${feelsLike}°C`;
+
+  getForecast(response.data.coord);
+}
+
+function getForecast(coordinates) {
+  console.log(coordinates);
+
+  let forecastKey = "bd3bb6534458ba51b48c49f5155745b6";
+  let forecastURl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${forecastKey}&units=metric`;
+
+  axios.get(forecastURl).then(displayForecast);
 }
 
 //Change between Centigrade and Fahrenheit
