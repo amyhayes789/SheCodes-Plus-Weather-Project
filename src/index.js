@@ -58,42 +58,56 @@ let dateTime = document.querySelector("#date-time");
 let now = new Date();
 dateTime.innerHTML = currentDate(now);
 
+function formatForecastDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
 //Create Forecast
 function displayForecast(response) {
   console.log(response.data.daily);
+  let forecast = response.data.daily;
 
   let forecastElement = document.querySelector("#forecast");
 
-  let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
-
   let forecastHTML = `<div class="row">`;
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `
     <div class="col">
           <div class="card day">
             <div class="row">
-              <h5 class="card-title">${day}</h5>
+              <h5 class="card-title">${formatForecastDay(forecastDay.dt)}</h5>
             </div>
             <div class="row">
               <img
-                src="https://openweathermap.org/img/wn/02d@2x.png"
+                src="https://openweathermap.org/img/wn/${
+                  forecastDay.weather[0].icon
+                }@2x.png"
                 alt="Forecast Day Icon"
                 id="dayIcon"
               />
             </div>
             <div class="row">
               <div class="col">
-                <p class="card-text temp-h">20°C</p>
+                <p class="card-text temp-h">${Math.round(
+                  forecastDay.temp.max
+                )}°C</p>
               </div>
               <div class="col">
-                <p class="card-text temp-l">12°C</p>
+                <p class="card-text temp-l">${Math.round(
+                  forecastDay.temp.min
+                )}°C</p>
               </div>
             </div>
           </div>
         </div>
   `;
+    }
   });
 
   forecastHTML = forecastHTML + `</div>`;
