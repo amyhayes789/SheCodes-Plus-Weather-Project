@@ -51,7 +51,7 @@ function currentDate(date) {
     "December",
   ];
   let month = months[date.getMonth()];
-  return `${day} ${dates} ${month} ${year}, ${hour}:${minutes}`;
+  return `${day} ${dates} ${month} ${year} - ${hour}:${minutes}`;
 }
 
 let dateTime = document.querySelector("#date-time");
