@@ -164,7 +164,7 @@ function displayWeather(response) {
 
   getForecast(response.data.coord);
 }
-
+//Forecast Function
 function getForecast(coordinates) {
   console.log(coordinates);
 
@@ -178,7 +178,7 @@ function getForecast(coordinates) {
 function formatForecastDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
-  let days = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   return days[day];
 }
 
@@ -198,7 +198,9 @@ function displayForecast(response) {
     <div class="col">
           <div class="card day">
             <div class="row">
-              <h5 class="card-title">${formatForecastDay(forecastDay.dt)}</h5>
+              <h5 class="card-title weekday">${formatForecastDay(
+                forecastDay.dt
+              )}</h5>
             </div>
             <div class="row">
               <img
@@ -206,7 +208,7 @@ function displayForecast(response) {
                   forecastDay.weather[0].icon
                 }@2x.png"
                 alt="Forecast Day Icon"
-                id="dayIcon"
+                class="dayIcon"
               />
             </div>
             <div class="row">

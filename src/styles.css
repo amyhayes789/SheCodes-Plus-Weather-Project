@@ -110,3 +110,19 @@ footer {
 .inactive:hover {
   color: #48484a;
 }
+
+.weekday {
+  font-size: 20px;
+}
+
+.dayIcon {
+  width: 125px;
+  display: block;
+  margin: 0 auto;
+}
+
+#search-bar {
+  border-color: #6c757d;
+  background-color: transparent;
+  color: #6c757d;
+}
