@@ -3,11 +3,9 @@ function currentDate(date) {
   let dates = date.getDate();
   if (dates === 1 || dates === 21 || dates === 31) {
     dates = `${dates}st`;
-  }
-  if (dates === 2 || dates === 22) {
+  } else if (dates === 2 || dates === 22) {
     dates = `${dates}nd`;
-  }
-  if (dates === 3 || dates === 23) {
+  } else if (dates === 3 || dates === 23) {
     dates = `${dates}rd`;
   } else {
     dates = `${dates}th`;
